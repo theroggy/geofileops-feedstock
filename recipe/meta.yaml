@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: bd49bcad831238308df6a223913ac7f6e4ba6060a7aa860e289441349a6d1e7b
 
 build:
@@ -17,9 +17,9 @@ build:
 requirements:
   host:
     - pip
-    - python >=3.9
+    - python {{ python_min }}
   run:
-    - python >=3.9
+    - python >={{ python_min }}
     - cloudpickle
     - gdal >=3.6.3,<3.10
     - geopandas-base >=0.12,<1.1
@@ -35,6 +35,8 @@ requirements:
     - sqlite <3.49  # Temporary, remove when geofileops 0.10 is released
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - geofileops
     - geofileops.util
